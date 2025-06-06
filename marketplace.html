@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace - Smart Agri-Connect</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Smart Agri-Connect</h1>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="marketplace.html">Marketplace</a>
+      <a href="features.html">Features</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQs</a>
+      <a href="contact.html">Contact</a>
+      <a href="cart.html" class="btn">View Cart</a>
+
+    </nav>
+  </header>
+
+  <main>
+    <section class="marketplace">
+      <h2>🛒 Marketplace</h2>
+      <p class="market-desc">Browse real-time produce prices and connect with buyers and sellers across regions.</p>
+      
+      <ul class="product-list">
+        <li>
+          <span class="product-tag">Fresh </span>
+          <p>Price: ₹<span id="price-corn">120</span></p>
+          <span id="note-corn" style="color: green;"></span>
+          <img src="image/corn.jpg" alt="Corn" class="product-img" />
+          <strong>Corn</strong> - ₹1,100 / quintal(120/kg)
+          <a href="#" class="btn" onclick="addToCart('Corn', 1100)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-rice">72</span></p>
+          <span id="note-rice" style="color: green;"></span>
+          <img src="image/rice.jpg" alt="Rice" class="product-img" />
+          <strong>Rice</strong> - ₹1,728 / quintal(72/kg)
+           <a href="#" class="btn" onclick="addToCart('rice', 1728)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-potato">80</span></p>
+          <span id="note-potato" style="color: green;"></span>
+        <img src="image/potato.jpg" alt="Potatoes" class="product-img" />
+        <strong>Potatoes</strong> - ₹780 / quintal(80/kg)
+         <a href="#" class="btn" onclick="addToCart('Potatoes', 780)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-tomato">140</span></p>
+          <span id="note-tomato" style="color: green;"></span>
+        <img src="image/tomato.jpg" alt="Tomatoes" class="product-img" />
+        <strong>Tomatoes</strong> - ₹1360 / quintal(140/kg)
+         <a href="#" class="btn" onclick="addToCart('Tomatoes', 1360)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-carrot">180</span></p>
+          <span id="note-carrot" style="color: green;"></span>
+          <img src="image/carrot.jpg" alt="Carrot" class="product-img" />
+          <strong>Carrot</strong> - ₹1080 / quintal(180/kg)
+           <a href="#" class="btn" onclick="addToCart('Carrot', 1080)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-iceapple">90</span></p>
+          <span id="note-iceapple" style="color: green;"></span>
+          <img src="image/ice apple.jpg" alt="iceapple" class="product-img" />
+          <strong>Ice Apple</strong> - ₹860/ quintal(90/10pices)
+           <a href="#" class="btn" onclick="addToCart('Ice Apple', 860)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-mango">80</span></p>
+          <span id="note-mango" style="color: green;"></span>
+          <img src="image/mango.jpg" alt="mango" class="product-img" />
+          <strong>Mango</strong> - ₹780 / quintal(80/kg)
+           <a href="#" class="btn" onclick="addToCart('Mango', 780)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-wheat">200</span></p>
+          <span id="note-wheat" style="color: green;"></span>
+          <img src="image/wheat.jpg" alt="wheat" class="product-img" />
+          <strong>Wheat</strong> - ₹1,800 / quintal(200/kg)
+           <a href="#" class="btn" onclick="addToCart('Wheat', 1800)">Buy Now</a>
+        </li>
+        <li>
+          <span class="product-tag">Fresh</span>
+          <p>Price: ₹<span id="price-nuts">300</span></p>
+          <span id="note-nuts" style="color: green;"></span>
+          <img src="image/nuts.jpg" alt="Nuts" class="product-img" />
+          <strong>Nuts</strong> - ₹2,700 / quintal(300/kg)
+          <a href="#" class="btn" onclick="addToCart('Nuts', 2700)">Buy Now</a>
+        </li>
+      </ul>
+
+      <a href="contact.html" class="btn">Request a Quote</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Smart Agri-Connect. All rights reserved.</p>
+  </footer>
+  <script>
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  function addToCart(productName, price) {
+    const quantity = prompt(`Enter quantity for ${productName}:`);
+    if (!quantity || isNaN(quantity) || quantity <= 0) return;
+
+    const existingProduct = cart.find(item => item.name === productName);
+    
+    if (existingProduct) {
+      existingProduct.quantity += parseInt(quantity);
+      existingProduct.total = existingProduct.price * existingProduct.quantity;
+    } else {
+      const item = {
+        name: productName,
+        price: price,
+        quantity: parseInt(quantity),
+        total: price * quantity,
+      };
+      cart.push(item);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`${productName} added to cart!`);
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+  const today = new Date();
+  const day = today.getDay();      
+  const date = today.getDate();    
+  const month = today.getMonth() + 1; 
+  const year = today.getFullYear();
+
+  const priceAdjustments = [
+    { id: 'tomato', base: 140, weekend: 160, special: 120 },
+    { id: 'corn', base: 120, weekend: 140, special: 100 },
+    { id: 'rice', base: 72, weekend: 80, special: 66 },
+    { id: 'potato', base: 80, weekend: 100, special: 70 },
+    { id: 'carrot', base: 180, weekend: 200, special: 160 },
+    { id: 'iceapple', base: 90, weekend: 100, special: 70 },
+    { id: 'mango', base: 80, weekend: 100, special: 65 },
+    { id: 'wheat', base: 200, weekend: 240, special: 170 },
+    { id: 'nuts', base: 300, weekend: 320, special: 270 }
+  ];
+
+  priceAdjustments.forEach(product => {
+    const priceEl = document.getElementById(`price-${product.id}`);
+    const noteEl = document.getElementById(`note-${product.id}`);
+
+    if (!priceEl || !noteEl) return;
+
+    let finalPrice = product.base;
+    noteEl.textContent = "";
+
+    if (day === 6 || day === 0) {
+      finalPrice = product.weekend;
+      noteEl.textContent = "🌟 Weekend Special!";
+    }
+
+    if (year === 2025 && month === 5 && date === 20) {
+      finalPrice = product.special;
+      noteEl.textContent = "🎉 Festival Offer!";
+    }
+
+    priceEl.textContent = finalPrice;
+  });
+});
+
+  </script>
+
+</body>
+</html>
